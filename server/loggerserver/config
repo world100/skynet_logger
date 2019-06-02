@@ -1,0 +1,37 @@
+---------------------------------------------------------
+-- base
+---------------------------------------------------------
+include("../config/config_public")
+
+server_name = "DB服务器"
+
+svr_name 	= "loggerserver"			--服务器类型
+svr_id 		= "1" 						--服务器id
+cluster_name = svr_name.."_"..svr_id 	--集群名
+root 		= "../"						--server所在目录
+base_root 	= "../../"
+pro_path 	= root .. svr_name
+
+
+---------------------------------------------------------
+-- service path
+---------------------------------------------------------
+--写日志到目录
+logger_file = base_root.."logs/"..cluster_name.."/"
+
+
+--将添加到 package.path 中的路径，供 require 调用
+lua_path 	= lua_path ..				
+			pro_path.."/?.lua;"..
+			pro_path.."/manager_service/?.lua;"
+			
+			
+
+
+--创建服务时查找文件的路径 ,注意不要有名字一样的服务
+luaservice	= lua_path
+
+
+---------------------------------------------------------
+-- advance
+---------------------------------------------------------

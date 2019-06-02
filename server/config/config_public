@@ -1,0 +1,66 @@
+---------------------------------------------------------
+-- base
+---------------------------------------------------------
+root 		= "../"					--server所在目录
+base_root 	= "../../"
+--启动多少个工作线程。通常不要将它配置超过你实际拥有的 CPU 核心数。
+thread 		= 8                 	
+--启动的第一个服务以及其启动参数
+bootstrap 	= "snlua bootstrap"  
+start 		= "main"                   -- main script
+harbor 		= 0                        -- single node
+
+--决定了 skynet 内建的 skynet_error 这个 C API 将信息输出到什么文件中。如果 logger 配置为 nil ，将输出到标准输出。你可以配置一个文件名来将信息记录在特定文件中。
+logger 		= nil
+
+-- 默认为 true, 可以用来统计每个服务使用了多少 cpu 时间
+profile     = true
+
+
+---------------------------------------------------------
+-- service path
+---------------------------------------------------------
+
+--预加载文件
+preload 	= root.."common/base/preload.lua"
+
+lualoader	= base_root.."depends/skynet/lualib/loader.lua"
+
+--它决定了集群配置文件的路径。
+--cluster     = root.."config/cluster/"
+
+--用 C 编写的服务模块的位置
+cpath 		= base_root.."depends/skynet/cservice/?.so;"
+
+--将添加到 package.cpath 中的路径，供 require 调用。
+lua_cpath 	= base_root .. "depends/skynet/luaclib/?.so;"..
+			  base_root .. "depends/?.so;"
+
+--将添加到 package.path 中的路径，供 require 调用
+lua_path 	= base_root.."depends/skynet/service/?.lua;"..
+			base_root.."depends/skynet/lualib/?.lua;"..
+			base_root.."depends/lua-pbc/?.lua;"..
+			--框架部分
+			root.."common/base/?.lua;"..			
+			root.."common/conf/?.lua;"..			
+			root.."common/lang/?.lua;"..
+			root.."common/cluster_service/?.lua;"..
+			root.."common/?.lua;" ..
+			root.."config/?.lua;" ..
+			root.."/?.lua;"
+
+
+-- 创建服务时查找文件的路径 ,注意不要有名字一样的服务
+luaservice	= lua_path
+-- 用snax框架编写的服务的查找路径。
+snax		= lua_path
+
+---------------------------------------------------------
+-- advance
+---------------------------------------------------------
+
+
+config_root 	= root .. "config/"
+proto_config 	= root .. "proto/"
+
+--daemon = "./skynet.pid"
